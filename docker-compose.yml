@@ -40,13 +40,13 @@ services:
       - 80:80
     depends_on:
       - app
-  # webpack-dev-server:
-  #   <<: *app
-  #   command: yarn run webpack-dev-server --color --mode development
-  #   ports:
-  #     - "3035:3035"
-  #   depends_on:
-  #     - web
+  webpack-dev-server:
+    <<: *app
+    command: yarn run webpack-dev-server --color --mode development
+    ports:
+      - "3035:3035"
+    depends_on:
+      - web
 
 volumes: 
   bundle:

@@ -18,7 +18,7 @@ COPY Gemfile Gemfile.lock $ROOT_PATH/
 RUN gem update bundler
 RUN bundle install -j4
 
-# install npm
+# install node_module
 # COPY package.json yarn.lock $ROOT_PATH/
 # RUN yarn install
 
