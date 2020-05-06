@@ -1,7 +1,7 @@
 import Vue from 'vue'
 // import Store from './store/store'
 // import Router from './router/router'
-// import vuetify from './plugins/vuetify'
+import vuetify from './plugins/vuetify'
 import App from './layouts/app'
 
 // import moment from 'moment'
@@ -21,7 +21,7 @@ new Vue({
   el: '#app',
   // store: Store,
   // router: Router,
-  // vuetify,
+  vuetify,
   render: h => h(App),
   async created() {
     // this.$store.dispatch('SetHeadersConfig')
