@@ -25,6 +25,15 @@ gem 'bootsnap', '>= 1.4.2', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'rspec-rails'
+  gem 'spring-commands-rspec'
+  gem 'shoulda-matchers', '4.0.0.rc1'
+  gem 'factory_bot_rails'
+  gem 'rails-controller-testing'
+  gem 'pry-rails'
+  gem 'pry-byebug'
+  gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
+  gem 'letter_opener_web'
 end
 
 group :development do
