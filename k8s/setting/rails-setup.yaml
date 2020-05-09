@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  namespace: sample
+  name: myapp-setup
+spec: 
+  template:
+    metadata: 
+      name: myapp-setup
+    spec: 
+      containers:
+      - name: myapp-setup
+        image: gcr.io/numeric-region-265702/book_shelf:0.0.1
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/sh"]
+        args: ["-c", "bundle exec rake db:create && bundle exec rake db:migrate"]
+        envFrom:
+        - configMapRef:
+            name: myapp-rails-env-cm
+        - secretRef:
+            name: myapp-rails-env-secret
+        env: 
+        - name: RAILS_MASTER_KEY
+          valueFrom:
+            secretKeyRef:
+              name: secretland-secrets
+              key: rails-master-key
+      
+      restartPolicy: Never
