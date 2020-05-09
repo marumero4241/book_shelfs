@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  namespace: sample
+  name: myapp-front-setup
+spec: 
+  template:
+    metadata: 
+      name: myapp-front-setup
+    spec: 
+      containers:
+      - name: myapp-front-setup
+        image: gcr.io/numeric-region-265702/book_shelf:0.0.1
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/sh"]
+        args: ["-c", "yarn run build:pro"]
+        envFrom:
+        - configMapRef:
+            name: myapp-rails-env-cm
+      restartPolicy: Never

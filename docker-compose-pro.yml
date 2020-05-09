@@ -1,0 +1,57 @@
+version: '3.3'
+services:
+  mysql:
+    image: mysql:5.7
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_general_ci
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-db:/var/lib/mysql
+    environment:
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+  app: &app
+    build:
+      context: .
+    command: bundle exec puma -C config/puma.rb
+    volumes:
+      - .:/myapp
+      - bundle:/usr/local/bundle
+      - tmp-data:/myapp/tmp
+      - log-data:/myapp/log
+    environment:
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_HOST: mysql
+      RAILS_ENV: production
+      NODE_ENV: production
+    depends_on:
+      - mysql
+    tty: true
+    stdin_open: true
+  web:
+    build:
+      context: docker/containers/nginx
+    volumes:
+      - public-data:/myapp/public
+      - tmp-data:/myapp/tmp
+    ports:
+      - 80:80
+    depends_on:
+      - app
+  webpack-dev-server:
+    <<: *app
+    command: yarn run build:pro
+    ports:
+      - "3035:3035"
+    depends_on:
+      - web
+
+volumes: 
+  bundle:
+  mysql-db:
+  public-data:
+  tmp-data:
+  log-data:
