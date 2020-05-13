@@ -10,16 +10,17 @@ clean: kubectl-delete
 kubectl-apply:
 	kubectl create -f namespace
 	kubectl apply -f config
-	kubectl apply -f volumes
-	kubectl apply -f settings
+	kubectl create secret generic secretland-secrets --from-literal=rails-master-key=$(cat ../config/master.key)
+	kubectl apply -f volume
+	kubectl apply -f setting
 
 kubectl-rollout-status:
 	kubectl rollout status deploy myapp-rails
 
 minikube-service:
-	minikube service myapp-rails
-
+	minikube service myapp-rails -n=sample
 
 kubectl-delete:
-	cat */*.yaml | kubectl delete -f -
+	kubectl -n sample delete deploy,pod,svc,PersistentVolume,PersistentVolumeClaim,secret --all         
+	kubectl delete -f namespace      
 
