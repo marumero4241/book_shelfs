@@ -9,6 +9,7 @@ clean: kubectl-delete
 
 kubectl-apply:
 	kubectl create -f namespace
+	kubens sample
 	kubectl apply -f config
 	kubectl create secret generic secretland-secrets --from-literal=rails-master-key=$(cat ../config/master.key)
 	kubectl apply -f volume
