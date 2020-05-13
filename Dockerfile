@@ -19,8 +19,8 @@ RUN gem update bundler
 RUN bundle install -j4
 
 # install node_module
-# COPY package.json yarn.lock $ROOT_PATH/
-# RUN yarn install
+COPY package.json yarn.lock $ROOT_PATH/
+RUN yarn install
 
 # ホストのアプリケーションディレクトリ内をすべてコンテナにコピー
 COPY . $ROOT_PATH

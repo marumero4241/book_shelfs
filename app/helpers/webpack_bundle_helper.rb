@@ -31,7 +31,7 @@ module WebpackBundleHelper
   private
 
   def asset_server
-    Rails.env == 'development' ? "http://#{request.host}:3035/public/assets/" : "/assets"
+    Rails.env == 'development' ? "http://#{request.host}:3035/public/assets/" : "/assets/"
   end
 
   def pro_manifest
